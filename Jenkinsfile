@@ -3,8 +3,10 @@ pipeline {
     agent any
 
     environment {
-        PYTHON_PATH = 'E:\\Espressif\\python_env\\idf5.5_py3.11_env\\Scripts\\python.exe'
-    }
+    PYTHON_PATH = 'E:\\Espressif\\python_env\\idf5.5_py3.11_env\\Scripts\\python.exe'
+
+    DEVICE_CREDENTIALS = credentials('industrial-device-credentials')
+}
 
     parameters {
         choice(
