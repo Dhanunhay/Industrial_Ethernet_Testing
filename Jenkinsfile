@@ -22,26 +22,51 @@ pipeline {
             }
         }
 
-        stage('Run Tests') {
-            steps {
-                script {
-
-                    if (params.TEST_SUITE == 'ALL') {
-                        bat '"%PYTHON_PATH%" -m pytest -v --junitxml=test-results.xml'
-                    }
-
-                    else if (params.TEST_SUITE == 'ETHERNET') {
-                        bat '"%PYTHON_PATH%" -m pytest -v test_ethernet.py --junitxml=test-results.xml'
-                    }
-
-                    else if (params.TEST_SUITE == 'NETWORK') {
-                        bat '"%PYTHON_PATH%" -m pytest -v test_network.py --junitxml=test-results.xml'
-                    }
-
-                    else if (params.TEST_SUITE == 'PROFINET') {
-                        bat '"%PYTHON_PATH%" -m pytest -v test_profinet.py --junitxml=test-results.xml'
-                    }
+        stage('Run All Tests') {
+            when {
+                expression {
+                    params.TEST_SUITE == 'ALL'
                 }
+            }
+
+            steps {
+                bat '"%PYTHON_PATH%" -m pytest -v --junitxml=test-results.xml'
+            }
+        }
+
+        stage('Run Ethernet Tests') {
+            when {
+                expression {
+                    params.TEST_SUITE == 'ETHERNET'
+                }
+            }
+
+            steps {
+                bat '"%PYTHON_PATH%" -m pytest -v test_ethernet.py --junitxml=test-results.xml'
+            }
+        }
+
+        stage('Run Network Tests') {
+            when {
+                expression {
+                    params.TEST_SUITE == 'NETWORK'
+                }
+            }
+
+            steps {
+                bat '"%PYTHON_PATH%" -m pytest -v test_network.py --junitxml=test-results.xml'
+            }
+        }
+
+        stage('Run PROFINET Tests') {
+            when {
+                expression {
+                    params.TEST_SUITE == 'PROFINET'
+                }
+            }
+
+            steps {
+                bat '"%PYTHON_PATH%" -m pytest -v test_profinet.py --junitxml=test-results.xml'
             }
         }
     }
