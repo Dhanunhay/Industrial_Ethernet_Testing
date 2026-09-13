@@ -1,7 +1,7 @@
 def test_ethernet_link():
     ethernet_connected = True
 
-    assert ethernet_connected is True
+    assert ethernet_connected is False
 
 
 def test_ethernet_data_transfer():
